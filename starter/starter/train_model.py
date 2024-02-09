@@ -1,3 +1,6 @@
+"""
+Functions in this file are used to train, save and evaluate the machine learning model 
+"""
 # Script to train machine learning model.
 
 from sklearn.model_selection import train_test_split
@@ -6,11 +9,8 @@ from sklearn.model_selection import train_test_split
 import os
 import logging
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from ml.data import process_data
 from ml.model import train_model, compute_model_metrics, inference
-#import pickle
-from slices import compute_slice_metrics
 import joblib
 
 logging.basicConfig(level=logging.INFO,
@@ -19,11 +19,15 @@ logger = logging.getLogger()
 
 # Add code to load in the data.
 logger.info('Read cleaned census data')
-file_dir = os.path.dirname(__file__)
-data = pd.read_csv(os.path.join(file_dir,"./data/census_cleaned.csv"))
+data_path = "../data/census_cleaned.csv"
+data = pd.read_csv(data_path)
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
-train, test = train_test_split(data, test_size=0.20)
+train, test = train_test_split(data, 
+                                test_size=0.20, 
+                                random_state=10, 
+                                stratify=data['salary']
+                                )
 
 cat_features = [
     "workclass",
@@ -53,20 +57,18 @@ logger.info('Training Random Forest Classifier')
 model = train_model(X_train, y_train)
 
 logger.info('Saving Random Forest Classifier model')
-model_path = os.path.join(file_dir, './model/model.pkl')
+model_path = '../model/model.pkl'
 joblib.dump(model, model_path)
             
 logger.info('Saving Encoder')
-encoder_path = os.path.join(file_dir, './model/encoder.pkl')
+encoder_path = '../model/encoder.pkl'
 joblib.dump(encoder, encoder_path)   
 
 logger.info('Saving Lb')
-lb_path = os.path.join(file_dir, './model/lb.pkl')
+lb_path = '../model/lb.pkl'
 joblib.dump(lb, lb_path) 
 
 # Evaluate the model
 y_preds = inference(model, X_test)
 precision, recall, fbeta = compute_model_metrics(y_test, y_preds)
-print("Precision: ", precision, " recall: ", recall, " fbeta: ", fbeta)
 logger.info(f"Precision: {precision: .2f}. Recall: {recall: .2f}. Fbeta: {fbeta: .2f}")
-
