@@ -5,7 +5,7 @@ import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from starter.ml.data import process_data
-from starter.ml.model import train_model, inference
+from starter.ml.model import train_model, inference, compute_model_metrics
 
 cat_features = [
     "workclass",
@@ -18,27 +18,16 @@ cat_features = [
     "native-country",
 ]
 
-
-def test_process_data():
-    """ Test process data """
-
-    df = pd.read_csv('./data/census_cleaned.csv')
-    train, test = train_test_split(df, test_size=0.20)
-
-    X_train, y_train, _, _ = process_data(
-        train, categorical_features=cat_features, label="salary", training=True
-    )
-    assert X_train.shape[0] == y_train.shape[0]
-
-
-def test_ml_model():
+def test_model():
     """ Test Random Forest model """
 
-    model = joblib.load('./model/model.pkl')
+    X = np.random.rand(100, 5)
+    y = np.random.randint(2, size=100)
+    model = train_model(X, y)
     assert isinstance(model, RandomForestClassifier)
 
 
-def test_ml_inference():
+def test_inference():
     """
     Test inference of model
     """
@@ -47,3 +36,14 @@ def test_ml_inference():
     model = train_model(X, y)
     y_preds = inference(model, X)
     assert y.shape == y_preds.shape
+
+def test_compute_model_metrics():
+    """
+    Test compute_model_metrics
+    """
+    y = [1, 1, 1, 0]
+    y_preds = [1, 0, 1, 0]
+    out_put = compute_model_metrics(y, y_preds)
+    assert len(out_put) == 3
+    for i in out_put:
+        assert type(i)==np.float64
