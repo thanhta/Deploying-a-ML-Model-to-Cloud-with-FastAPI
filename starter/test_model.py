@@ -39,7 +39,7 @@ def test_inference():
 
 def test_compute_model_metrics():
     """
-    Test compute_model_metrics
+    Test compute_model_metrics using precision, recall, and F1
     """
     y = [1, 1, 1, 0]
     y_preds = [1, 0, 1, 0]
