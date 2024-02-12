@@ -33,7 +33,7 @@ The source of the data for evaluation is from [UCI Machine Learning Repository](
 ## Metrics
 The below metrics are used to evaluate the performance of the Random Forest classfier model:
 * Precision: The number of true positives divided by the total number of positive predictions (i.e., the number of true positives plus the number of false positives). In this case, the Precision value is 0.73 
-* Recall: The number of true positive predictions divided by the total actual positives. In this case, the Recal value is 0.64 
+* Recall: The number of true positive predictions divided by the total actual positives. In this case, the Recall value is 0.64 
 * F-beta: The weight harmonic of precision and recall. In this case the F-beta value is 0.68
 
 ## Ethical Considerations
