@@ -5,6 +5,7 @@ Unit test of main.py API module
 from fastapi.testclient import TestClient
 import json
 import pytest
+import uvicorn
 from main import app
 
 client = TestClient(app)
