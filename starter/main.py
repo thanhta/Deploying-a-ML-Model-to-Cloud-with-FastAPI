@@ -2,7 +2,7 @@
 Script for FastAPI instance and model inference
 """
 # Put the code for your API here.
-import os
+#import os
 import logging
 from fastapi import FastAPI, HTTPException
 from typing import Union, Optional
@@ -110,6 +110,10 @@ async def predict(predict: InputData):
                 'native-country': predict.native_country,
             }
     
+    # Convert the sample data has names with hyphens to underscore
+    #sample_data = {key.replace('-', '_'): [value] for key, value in predict.__dict__.items()}
+    logger.info(f"sample_data: {sample_data}")
+
     # prepare the input data for inference as a dataframe
     sample_df = pd.DataFrame(sample_data, index=[0])
     X, _, _, _ = process_data(
