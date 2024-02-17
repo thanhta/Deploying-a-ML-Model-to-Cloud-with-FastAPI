@@ -68,7 +68,7 @@ def test_predict_over_50K():
 
 def test_predict_below_50K():
     """
-    Test the prediction of salary <= 50K 
+    Test the prediction of salary less than 50K 
     """
 
     data = {"age": 28,      
