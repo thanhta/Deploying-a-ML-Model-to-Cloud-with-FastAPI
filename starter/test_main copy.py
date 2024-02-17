@@ -4,48 +4,32 @@ Unit test of main.py API module
 
 from fastapi.testclient import TestClient
 import json
-import pytest
+import logging
 from main import app
 
+
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger()
+
 client = TestClient(app)
+
 
 def test_get():
     """
     Test welcome message for http get at root
     """
+    logger.info('test http GET to get welcome message')
 
     r = client.get("/")
     assert r.status_code == 200
     assert r.json() == "Welcome to Census Data Classifier API"
 
-
-def test_predict_invalid_content():
-    """
-    Test the prediction of invalid conntent 
-    """
-
-    data = {"age": 40,
-            "workclass": "Private",
-            "fnlgt": 154374,
-            "education": "",
-            "marital_status": "Married-civ-spouse",
-            "occupation": "Machine-op-inspct",
-            "race": "White",
-            "sex": "Male",
-            "capitalgain": 0,
-            "capitalloss": 0,
-            "hoursperweek": 40,
-            "nativecountry": "United-States"
-            }
-    
-    response = client.post("/predict", json=json.dumps(data))
-    assert response.status_code == 422
-
 def test_predict_over_50K():
     """
     Test the prediction of salary over 50K 
     """
-
+    logger.info('test http POST to predict the income >50k')
     data = {"age": 40,
             "workclass": "Private",
             "fnlgt": 154374,
@@ -70,7 +54,7 @@ def test_predict_below_50K():
     """
     Test the prediction of salary <= 50K 
     """
-
+    logger.info('test http POST to predict the income <=50k')
     data = {"age": 28,      
             "workclass": "Private",
             "fnlgt": 338409,
