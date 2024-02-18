@@ -29,7 +29,8 @@ cat_features = [
 ]
 
 logger.info('Retrieve Random Forest Classifier model')
-file_dir = os.path.dirname(__file__)
+#file_dir = os.path.dirname(__file__)
+file_dir = os.path.dirname(os.path.realpath(__file__))
 # Load model
 
 model_path_pkl = './model/model.pkl'
