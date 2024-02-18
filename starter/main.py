@@ -2,7 +2,7 @@
 Script for FastAPI instance and model inference
 """
 # Put the code for your API here.
-#import os
+import os
 import logging
 from fastapi import FastAPI, HTTPException
 from typing import Union, Optional
@@ -29,18 +29,24 @@ cat_features = [
 ]
 
 logger.info('Retrieve Random Forest Classifier model')
-#model_path = '../model/model.pkl'
-model_path = 'model/model.pkl'
+file_dir = os.path.dirname(__file__)
+# Load model
+
+model_path_pkl = './model/model.pkl'
+#model_path = 'model/model.pkl'
+model_path = os.path.join(file_dir, model_path_pkl)
 model = joblib.load(model_path)
             
 logger.info('Retrieve Encoder')
-#encoder_path = '../model/encoder.pkl'
-encoder_path = 'model/encoder.pkl'
+encoder_path_pkl = './model/encoder.pkl'
+#encoder_path = 'model/encoder.pkl'
+encoder_path = os.path.join(file_dir, encoder_path_pkl)
 encoder = joblib.load(encoder_path)   
 
 logger.info('Retrieve LabelBinarizer')
-#lb_path = '../model/lb.pkl'
-lb_path = 'model/lb.pkl'
+lb_path = './model/lb.pkl'
+#lb_path = 'model/lb.pkl'
+lb_path = os.path.join(file_dir, lb_path)
 lb = joblib.load(lb_path) 
 
 # Declare the data object
