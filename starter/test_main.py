@@ -4,9 +4,15 @@ Unit test of main.py API module
 
 from fastapi.testclient import TestClient
 import json
-import pytest
-import uvicorn
+import logging
+#import pytest
+#import uvicorn
 from main import app
+
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger()
+
 
 client = TestClient(app)
 
@@ -14,6 +20,7 @@ def test_get():
     """
     Test welcome message for http get at root
     """
+    logger.info('Invoking test_get')
 
     r = client.get("/")
     assert r.status_code == 200
@@ -24,6 +31,7 @@ def test_predict_invalid_content():
     """
     Test the prediction of invalid conntent 
     """
+    logger.info('Invoking test_predict_invalid_content')
 
     data = {"age": 40,
             "workclass": "Private",
@@ -46,6 +54,7 @@ def test_predict_over_50K():
     """
     Test the prediction of salary over 50K 
     """
+    logger.info('Invoking test_predict_over_50K')
 
     data = {"age": 40,
             "workclass": "Private",
@@ -71,6 +80,7 @@ def test_predict_below_50K():
     """
     Test the prediction of salary less than 50K 
     """
+    logger.info('Invoking Test_predict_below_50K')
 
     data = {"age": 28,      
             "workclass": "Private",

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import logging
-import pytest
+#import pytest
 import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -49,8 +49,8 @@ def test_compute_model_metrics():
     """
     Test compute_model_metrics using precision, recall, and F1
     """
-    logger.info('test_compute_model_metrics')
-    
+    logger.info('Invoking #test_compute_model_metrics')
+
     y = [1, 1, 1, 0]
     y_preds = [1, 0, 1, 0]
     out_put = compute_model_metrics(y, y_preds)
