@@ -34,37 +34,32 @@ cat_features = [
 
 root_dir = os.path.join(os.path.dirname(__file__), '')
 #sys.path.append(root_dir)
-#print("root_dir: ", root_dir)
 logger.info(f"root_dir: {root_dir}")
-
 logger.info('Retrieve Random Forest Classifier model')
 #file_dir = os.path.dirname(__file__)
 #file_dir = os.path.dirname(os.path.realpath(__file__))
-
-#model_path_pkl = 'model/model.pkl'
-#model_path = os.path.join(root_dir, model_path_pkl)
-
-model_path = 'model/model.pkl'
+model_path_pkl = 'model/model.pkl'
+model_path = os.path.join(root_dir, model_path_pkl)
+#model_path = 'model/model.pkl'
 logger.info(f"model_path: {model_path}")
-model = joblib.load(model_path)#
+model = joblib.load(model_path)
             
-logger.info('Retrieve Encoder')
-#encoder_path_pkl = 'model/encoder.pkl'
-#encoder_path = os.path.join(root_dir, encoder_path_pkl)
 
-encoder_path = 'model/encoder.pkl'
+encoder_path_pkl = 'model/encoder.pkl'
+encoder_path = os.path.join(root_dir, encoder_path_pkl)
+#encoder_path = 'model/encoder.pkl'
+logger.info(f"encoder_path: {encoder_path}")
 encoder = joblib.load(encoder_path)   
 
-logger.info('Retrieve LabelBinarizer')
-#lb_path_pkl = 'model/lb.pkl'
-#lb_path = os.path.join(root_dir, lb_path_pkl)
 
-lb_path = 'model/lb.pkl'
+lb_path_pkl = 'model/lb.pkl'
+lb_path = os.path.join(root_dir, lb_path_pkl)
+#lb_path = 'model/lb.pkl'
+logger.info(f"lb_path: {lb_path}")
 lb = joblib.load(lb_path)
 
 
 #model, encoder, lb = get_pkl()
-
 # Declare the data object
 class InputData(BaseModel):
     age: int
@@ -149,4 +144,4 @@ async def predict(predict: InputData):
     return {'Predicted Income': lb.inverse_transform(y_pred)[0]}
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', host='0.0.0.0', port=5000, reload=True)
+    uvicorn.run('main:app', host='0.0.0.0', port=4400, reload=True)
