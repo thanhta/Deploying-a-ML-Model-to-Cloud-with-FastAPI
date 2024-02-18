@@ -11,6 +11,7 @@ from pydantic import BaseModel
 import pandas as pd
 from starter.ml.data import process_data
 from starter.ml.model import inference
+from starter.get_pkl import get_pkl
 import joblib
 import uvicorn
 
@@ -46,21 +47,24 @@ model_path_pkl = 'model/model.pkl'
 #model_path = os.path.join(file_dir, model_path_pkl)
 model_path = os.path.join(root_dir, model_path_pkl)
 logger.info(f"model_path: {model_path}")
-model = joblib.load(model_path)
+#model = joblib.load(model_path)#
             
 logger.info('Retrieve Encoder')
 encoder_path_pkl = 'model/encoder.pkl'
 #encoder_path = 'model/encoder.pkl'
 #encoder_path = os.path.join(file_dir, encoder_path_pkl)
 encoder_path = os.path.join(root_dir, encoder_path_pkl)
-encoder = joblib.load(encoder_path)   
+#encoder = joblib.load(encoder_path)   
 
 logger.info('Retrieve LabelBinarizer')
 lb_path_pkl = 'model/lb.pkl'
 #lb_path = 'model/lb.pkl'
 #lb_path = os.path.join(file_dir, lb_path)
 lb_path = os.path.join(root_dir, lb_path_pkl)
-lb = joblib.load(lb_path) 
+#lb = joblib.load(lb_path)
+
+
+model, encoder, lb = get_pkl()
 
 # Declare the data object
 class InputData(BaseModel):
