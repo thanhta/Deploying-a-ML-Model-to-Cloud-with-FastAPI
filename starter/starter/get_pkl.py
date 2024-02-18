@@ -26,22 +26,28 @@ def get_pkl():
     model_path_pkl = 'model/model.pkl'
     #model_path = 'model/model.pkl'
     #model_path = os.path.join(file_dir, model_path_pkl)
-    model_path = os.path.join(root_dir, model_path_pkl)
-    logger.info(f"model_path: {model_path}")
+    #model_path = os.path.join(root_dir, model_path_pkl)
+    #logger.info(f"model_path: {model_path}")
+
+    model_path = './model/model.pkl'
     model = joblib.load(model_path)
             
     logger.info('Retrieve Encoder pkl')
-    encoder_path_pkl = 'model/encoder.pkl'
+    #encoder_path_pkl = 'model/encoder.pkl'
     #encoder_path = 'model/encoder.pkl'
     #encoder_path = os.path.join(file_dir, encoder_path_pkl)
-    encoder_path = os.path.join(root_dir, encoder_path_pkl)
+    #encoder_path = os.path.join(root_dir, encoder_path_pkl)
+
+    encoder_path = './model/encoder.pkl'
     encoder = joblib.load(encoder_path)   
 
     logger.info('Retrieve LabelBinarizer pkl')
-    lb_path_pkl = 'model/lb.pkl'
+    #lb_path_pkl = 'model/lb.pkl'
     #lb_path = 'model/lb.pkl'
     #lb_path = os.path.join(file_dir, lb_path)
-    lb_path = os.path.join(root_dir, lb_path_pkl)
+    #lb_path = os.path.join(root_dir, lb_path_pkl)
+
+    lb_path = './model/lb.pkl'
     lb = joblib.load(lb_path) 
 
     return model, encoder, lb
