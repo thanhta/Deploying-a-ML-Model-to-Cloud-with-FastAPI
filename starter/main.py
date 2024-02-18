@@ -3,6 +3,7 @@ Script for FastAPI instance and model inference
 """
 # Put the code for your API here.
 import os
+import sys
 import logging
 from fastapi import FastAPI, HTTPException
 from typing import Union, Optional
@@ -12,6 +13,8 @@ from starter.ml.data import process_data
 from starter.ml.model import inference
 import joblib
 import uvicorn
+
+
 
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
@@ -28,26 +31,35 @@ cat_features = [
     "native-country",
 ]
 
+root_dir = os.path.join(os.path.dirname(__file__), '')
+#sys.path.append(root_dir)
+#print("root_dir: ", root_dir)
+logger.info(f"root_dir: {root_dir}")
+
 logger.info('Retrieve Random Forest Classifier model')
 #file_dir = os.path.dirname(__file__)
-file_dir = os.path.dirname(os.path.realpath(__file__))
+#file_dir = os.path.dirname(os.path.realpath(__file__))
 # Load model
 
-model_path_pkl = './model/model.pkl'
+model_path_pkl = 'model/model.pkl'
 #model_path = 'model/model.pkl'
-model_path = os.path.join(file_dir, model_path_pkl)
+#model_path = os.path.join(file_dir, model_path_pkl)
+model_path = os.path.join(root_dir, model_path_pkl)
+logger.info(f"model_path: {model_path}")
 model = joblib.load(model_path)
             
 logger.info('Retrieve Encoder')
-encoder_path_pkl = './model/encoder.pkl'
+encoder_path_pkl = 'model/encoder.pkl'
 #encoder_path = 'model/encoder.pkl'
-encoder_path = os.path.join(file_dir, encoder_path_pkl)
+#encoder_path = os.path.join(file_dir, encoder_path_pkl)
+encoder_path = os.path.join(root_dir, encoder_path_pkl)
 encoder = joblib.load(encoder_path)   
 
 logger.info('Retrieve LabelBinarizer')
-lb_path = './model/lb.pkl'
+lb_path_pkl = 'model/lb.pkl'
 #lb_path = 'model/lb.pkl'
-lb_path = os.path.join(file_dir, lb_path)
+#lb_path = os.path.join(file_dir, lb_path)
+lb_path = os.path.join(root_dir, lb_path_pkl)
 lb = joblib.load(lb_path) 
 
 # Declare the data object
