@@ -1,3 +1,6 @@
+"""
+Unit test of RandomForestClassifier model and its performance matrix
+"""
 import numpy as np
 import pandas as pd
 import logging

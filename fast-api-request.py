@@ -1,3 +1,7 @@
+"""
+Test fastAPI of main.py API module in Heroku
+"""
+
 import json
 import requests
 
@@ -17,18 +21,12 @@ data = {"age": 40,
             "native_country": "United-States"
             }
 
-"""""
-response = requests.post(
-    "https://fastapi-ml-predict-03185853b66f.herokuapp.com/predict", data=json.dumps(data) )
-"""
 
 response = requests.post(
     "https://fastapi-ml-predict-03185853b66f.herokuapp.com/predict", json=data )
 
-#print(response.status_code)
-#print(response.json())
 
-# display output - response will show sample details + model prediction added
+# Display outputresponse will show the result of model prediction which is over or less than 50K (predicted income)
 print("response status code", response.status_code)
 print("response content:")
 print(response.json())

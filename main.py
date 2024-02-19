@@ -1,5 +1,5 @@
 """
-Script for FastAPI instance and model inference
+Script for building FastAPI instance and model inference
 """
 # Put the code for your API here.
 import os
@@ -132,9 +132,9 @@ async def predict(predict: InputData):
     sample_df = pd.DataFrame(sample_data, index=[0])
 
     # Convert the sample data has names with hyphens to underscore
-    #sample_data = {key.replace('_', '-'): [value] for key, value in predict.__dict__.items()}
-    new_col_names = [re.sub("\\_", "-", col) for col in sample_df.columns]
-    sample_df.columns = new_col_names
+    # sample_data = {key.replace('_', '-'): [value] for key, value in predict.__dict__.items()}
+    # new_col_names = [re.sub("\\_", "-", col) for col in sample_df.columns]
+    # sample_df.columns = new_col_names
 
     X, _, _, _ = process_data(
                     sample_df, categorical_features=cat_features, label=None, training=False,
