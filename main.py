@@ -14,6 +14,7 @@ from starter.ml.model import inference
 from starter.get_pkl import get_pkl
 import joblib
 import uvicorn
+import re
 
 
 
@@ -33,11 +34,8 @@ cat_features = [
 ]
 
 root_dir = os.path.join(os.path.dirname(__file__), '')
-#sys.path.append(root_dir)
-#logger.info(f"root_dir: {root_dir}")
-#logger.info('Retrieve Random Forest Classifier model')
-#file_dir = os.path.dirname(__file__)
-#file_dir = os.path.dirname(os.path.realpath(__file__))
+logger.info(f"root_dir: {root_dir}")
+
 model_path_pkl = 'model/model.pkl'
 model_path = os.path.join(root_dir, model_path_pkl)
 #model_path = 'model/model.pkl'
@@ -127,12 +125,17 @@ async def predict(predict: InputData):
                 'native-country': predict.native_country,
             }
     
-    # Convert the sample data has names with hyphens to underscore
-    #sample_data = {key.replace('-', '_'): [value] for key, value in predict.__dict__.items()}
+
     logger.info(f"sample_data: {sample_data}")
 
     # prepare the input data for inference as a dataframe
     sample_df = pd.DataFrame(sample_data, index=[0])
+
+    # Convert the sample data has names with hyphens to underscore
+    #sample_data = {key.replace('-', '_'): [value] for key, value in predict.__dict__.items()}
+    new_col_names = [re.sub("\\_", "-", col) for col in sample_df.columns]
+    sample_df.columns = new_col_names
+
     X, _, _, _ = process_data(
                     sample_df, categorical_features=cat_features, label=None, training=False,
                     encoder=encoder, lb=lb
